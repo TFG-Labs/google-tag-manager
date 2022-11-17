@@ -237,9 +237,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      console.log('====================================');
-      console.log(data);
-      console.log('====================================');
+      console.dir(data);
 
       updateEcommerce('orderPlaced', data)
 
