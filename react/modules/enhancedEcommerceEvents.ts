@@ -208,7 +208,10 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:orderPlaced': {
       const order = e.data
-      const visitorData = order?.visitorContactInfo.map((e: string) => {
+      const visitorContact = order?.visitorContactInfo.map((e: string) => {
+        return toHash(e)
+      })
+      const visitorDemographic = order?.visitorDemographicInfo.map((e: string) => {
         return toHash(e)
       })
 
@@ -225,7 +228,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         // @ts-ignore
         event: 'orderPlaced',
         ...order,
-        visitorContactInfo: visitorData,
+        visitorContactInfo: visitorContact,
+        visitorDemographicInfo: visitorDemographic,
         // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
         // were using this as it was called before (ecommerce). For that reason,
         // it will also be sent as ecommerce to the dataLayer.
@@ -237,7 +241,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         },
       }
 
-      console.dir(data);
+      console.log("orderPlaced",data);
 
       updateEcommerce('orderPlaced', data)
 

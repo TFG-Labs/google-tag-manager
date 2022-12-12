@@ -5096,9 +5096,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-"vtex.google-tag-manager@https://bpf170--thefoschini.myvtex.com/_v/private/typings/linked/v1/vtex.google-tag-manager@3.3.1+build1668609722/public/@types/vtex.google-tag-manager":
+"vtex.google-tag-manager@https://bpf170--thefoschini.myvtex.com/_v/private/typings/linked/v1/vtex.google-tag-manager@3.3.1+build1670840445/public/@types/vtex.google-tag-manager":
   version "3.3.1"
-  resolved "https://bpf170--thefoschini.myvtex.com/_v/private/typings/linked/v1/vtex.google-tag-manager@3.3.1+build1668609722/public/@types/vtex.google-tag-manager#34be879e60a7da1be9bbdf5b5f09fda148a499de"
+  resolved "https://bpf170--thefoschini.myvtex.com/_v/private/typings/linked/v1/vtex.google-tag-manager@3.3.1+build1670840445/public/@types/vtex.google-tag-manager#1854a619c9a70788084dcca0071a4e2e42ec5356"
 
 "vtex.pixel-interfaces@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-interfaces@1.1.1/public/_types/react":
   version "0.0.0"
