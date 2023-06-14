@@ -7,9 +7,7 @@ import {
   CartItem,
   AddToCartData,
   RemoveToCartData,
-  ProductViewData,
   Seller,
-  ProductClickData,
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct } from '../typings/gtm'
@@ -36,7 +34,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         productName,
         brand,
         categories,
-      } = (e.data as ProductViewData).product
+      } = e.data.product
 
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
@@ -69,6 +67,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             products: [
               {
                 brand,
+                affiliation: selectedSku.sellers[0].sellerName,
                 category: getCategory(categories),
                 id: productId,
                 variant: selectedSku.itemId,
@@ -91,7 +90,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productClick': {
-      const { product, position } = e.data as ProductClickData
+      const { product, position } = e.data
       const {
         productName,
         brand,
@@ -121,6 +120,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             products: [
               {
                 brand,
+                affiliation: sku.seller.sellerName,
                 category: getCategory(categories),
                 id: productId,
                 variant: sku.itemId,
@@ -149,6 +149,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
           add: {
             products: items.map(item => ({
               brand: item.brand,
+              affiliation: item.sellerName,
               category: item.category,
               id: item.productId,
               variant: item.skuId,
@@ -169,7 +170,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       }
 
       updateEcommerce('addToCart', data)
-
+      
       return
     }
 
@@ -259,7 +260,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:cartLoaded': {
       const { orderForm } = e.data
-
+      
       const data = {
         event: 'checkout',
         ecommerce: {
