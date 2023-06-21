@@ -35,7 +35,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         brand,
         categories,
       } = e.data.product
-
+      
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
 
@@ -91,6 +91,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:productClick': {
       const { product, position } = e.data
+      console.log(product, 'product click properties ===================================================');
       const {
         productName,
         brand,
@@ -98,8 +99,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         sku,
         productId,
         productReference,
+        properties
       } = product
-
+      
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
@@ -112,6 +114,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         price = undefined
       }
 
+      const storeName = properties.find((property: any) => property.name === "Store")
+      
       const data = {
         event: 'productClick',
         ecommerce: {
@@ -120,7 +124,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             products: [
               {
                 brand,
-                affiliation: sku.seller.sellerName,
+                affiliation: storeName.values[0],
                 category: getCategory(categories),
                 id: productId,
                 variant: sku.itemId,
