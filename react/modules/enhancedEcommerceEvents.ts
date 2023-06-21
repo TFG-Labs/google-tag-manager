@@ -67,7 +67,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             products: [
               {
                 brand,
-                affiliation: selectedSku.sellers[0].sellerName,
                 category: getCategory(categories),
                 id: productId,
                 variant: selectedSku.itemId,
@@ -153,7 +152,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
           add: {
             products: items.map(item => ({
               brand: item.brand,
-              affiliation: item.sellerName,
               category: item.category,
               id: item.productId,
               variant: item.skuId,
