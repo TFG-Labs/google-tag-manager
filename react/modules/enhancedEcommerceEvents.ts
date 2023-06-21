@@ -113,7 +113,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         price = undefined
       }
 
-      const storeName = properties.find((property: any) => property.name === "Store")
+      const storeName = properties.find((property: { name: string }) => property.name === "Store")
       
       const data = {
         event: 'productClick',
