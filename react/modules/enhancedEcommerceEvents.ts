@@ -44,7 +44,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
-
+      
       // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
       // Doing that there could possibly break some apps or stores, so it's better doing it here
       const skuReferenceId = (
@@ -90,7 +90,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:productClick': {
       const { product, position } = e.data
-      console.log(product, 'product click properties ===================================================');
+
       const {
         productName,
         brand,
@@ -146,11 +146,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:addToCart': {
       const { items } = e.data as AddToCartData
-
+      
       const data = {
         ecommerce: {
           add: {
-            products: items.map(item => ({
+            products: items.map((item: any) => ({
+              affiliate: item.affiliate,
               brand: item.brand,
               category: item.category,
               id: item.productId,
