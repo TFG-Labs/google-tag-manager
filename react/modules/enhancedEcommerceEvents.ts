@@ -10,7 +10,7 @@ import {
   Seller,
   ProductViewReferenceId,
 } from '../typings/events'
-import { AnalyticsEcommerceProduct } from '../typings/gtm'
+import { AnalyticsEcommerceProduct, MaybePrice } from '../typings/gtm'
 
 function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -60,6 +60,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         price = undefined
       }
 
+      const includePrice: MaybePrice = {}
+
+      if (typeof price === 'number') {
+        includePrice.price = price
+      }
+
       const data = {
         ecommerce: {
           detail: {
@@ -75,7 +81,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension2: skuReferenceId ?? '',
                 dimension3: selectedSku.name,
                 dimension4: isAvailable,
-                price,
+                ...includePrice,
               },
             ],
           },
@@ -115,6 +121,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       const storeName = properties.find((property: { name: string }) => property.name === "Store")
       
+      const includePrice: MaybePrice = {}
+
+      if (typeof price === 'number') {
+        includePrice.price = price
+      }
+
       const data = {
         event: 'productClick',
         ecommerce: {
@@ -131,8 +143,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
                 dimension1: productReference ?? '',
                 dimension2: sku.referenceId?.Value ?? '',
                 dimension3: sku.name,
-                price,
+
                 position,
+                ...includePrice,
               },
             ],
           },
@@ -157,10 +170,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
               id: item.productId,
               variant: item.skuId,
               name: item.name, // Product name
-              price:
-                item.priceIsInt === true
-                  ? `${item.price / 100}`
-                  : `${item.price}`,
+              price: item.priceIsInt === true ? item.price / 100.0 : item.price,
               quantity: item.quantity,
               dimension1: item.productRefId ?? '',
               dimension2: item.referenceId ?? '', // SKU reference id
@@ -190,10 +200,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
               id: item.productId,
               variant: item.skuId,
               name: item.name, // Product name
-              price:
-                item.priceIsInt === true
-                  ? `${item.price / 100}`
-                  : `${item.price}`,
+              price: item.priceIsInt === true ? item.price / 100.0 : item.price,
               quantity: item.quantity,
               dimension1: item.productRefId ?? '',
               dimension2: item.referenceId ?? '', // SKU reference id
@@ -375,7 +382,7 @@ function getProductImpressionObjectData(list: string) {
     list,
     name: product.productName,
     position,
-    price: `${product.sku.seller.commertialOffer.Price}`,
+    price: product.sku.seller.commertialOffer.Price,
     dimension1: product.productReference ?? '',
     dimension2: product.sku.referenceId?.Value ?? '',
     dimension3: product.sku.name, // SKU name (variation only)
