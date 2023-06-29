@@ -4837,9 +4837,9 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-"thefoschini.google-tag-manager@https://bpf170--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.google-tag-manager@3.3.3+build1688033172/public/@types/thefoschini.google-tag-manager":
-  version "3.3.3"
-  resolved "https://bpf170--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.google-tag-manager@3.3.3+build1688033172/public/@types/thefoschini.google-tag-manager#833cdd6c04bc6fe106e90b79125db8ae71c91a8f"
+"thefoschini.google-tag-manager@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.3.4/public/@types/thefoschini.google-tag-manager":
+  version "3.3.4"
+  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.3.4/public/@types/thefoschini.google-tag-manager#82a0ce730a191b7d520030c01430240220cf0555"
 
 throat@^5.0.0:
   version "5.0.0"
