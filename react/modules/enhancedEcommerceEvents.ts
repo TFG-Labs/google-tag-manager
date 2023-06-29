@@ -7,9 +7,7 @@ import {
   CartItem,
   AddToCartData,
   RemoveToCartData,
-  ProductViewData,
   Seller,
-  ProductClickData,
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct, MaybePrice } from '../typings/gtm'
@@ -37,8 +35,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         productName,
         brand,
         categories,
-      } = (e.data as ProductViewData).product
-
+      } = e.data.product
+      
       const productAvailableQuantity = getSeller(selectedSku.sellers)
         .commertialOffer.AvailableQuantity
 
@@ -47,7 +45,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
-
+      
       // This type conversion is needed because vtex.store does not normalize the SKU Reference Id
       // Doing that there could possibly break some apps or stores, so it's better doing it here
       const skuReferenceId = (
@@ -98,7 +96,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:productClick': {
-      const { product, position } = e.data as ProductClickData
+      const { product, position } = e.data
+
       const {
         productName,
         brand,
@@ -106,8 +105,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         sku,
         productId,
         productReference,
+        properties
       } = product
-
+      
       // Product summary list title. Ex: 'List of products'
       const list = e.data.list ? { actionField: { list: e.data.list } } : {}
 
@@ -120,6 +120,8 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         price = undefined
       }
 
+      const storeName = properties.find((property: { name: string }) => property.name === "Store")
+      
       const includePrice: MaybePrice = {}
 
       if (typeof price === 'number') {
@@ -134,6 +136,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             products: [
               {
                 brand,
+                affiliation: storeName.values[0],
                 category: getCategory(categories),
                 id: productId,
                 variant: sku.itemId,
@@ -157,11 +160,12 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:addToCart': {
       const { items } = e.data as AddToCartData
-
+      
       const data = {
         ecommerce: {
           add: {
-            products: items.map(item => ({
+            products: items.map((item: any) => ({
+              affiliation: item.affiliation,
               brand: item.brand,
               category: item.category,
               id: item.productId,
@@ -180,7 +184,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       }
 
       updateEcommerce('addToCart', data)
-
+      
       return
     }
 
@@ -273,7 +277,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:cartLoaded': {
       const { orderForm } = e.data
-
+      
       const data = {
         event: 'checkout',
         ecommerce: {

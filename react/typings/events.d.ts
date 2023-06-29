@@ -196,6 +196,7 @@ interface CartItem {
   skuId: string
   referenceId: string // SKU reference id
   variant: string
+  sellerName: string
 }
 
 interface Totalizer {
