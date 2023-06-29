@@ -27,11 +27,17 @@ export async function sendExtraEvents(e: PixelMessage) {
       }
 
       const emailHash = data.email ? await toHash(data.email) : undefined
+      const firstName = data?.firstName ? await toHash(data.firstName) : null
+      const lastName = data?.lastName? await toHash(data.lastName) : null
+      const phone = data?.phone? await toHash(data.phone) : null
 
       push({
         event: 'userData',
         userId: data.id,
-        emailHash: emailHash 
+        emailHash: emailHash ,
+        ...(firstName && {firstName}),
+        ...(lastName && {lastName}),
+        ...(phone && {phone})
       })
 
       break
