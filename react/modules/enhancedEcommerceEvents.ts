@@ -164,7 +164,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         ecommerce: {
           add: {
             products: items.map((item: any) => ({
-              affiliate: item.affiliate,
+              affiliation: item.affiliation,
               brand: item.brand,
               category: item.category,
               id: item.productId,
