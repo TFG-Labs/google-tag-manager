@@ -6,6 +6,7 @@ import {
   RemoveToCartData,
   Seller,
   ProductViewReferenceId,
+  CartItem,
 } from '../typings/events'
 import { MaybePrice } from '../typings/gtm'
 import { toHash } from './analytics/utils'
@@ -273,7 +274,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:cartLoaded': {
       const { orderForm } = e.data
-      
       const data = {
         event: 'checkout',
         ecommerce: {
@@ -287,6 +287,60 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
       }
 
       updateEcommerce('checkout', data)
+
+      break
+    }
+
+    case 'vtex:viewCart': {
+      const { items } = e.data
+
+      const data = {
+        event: 'viewCart',
+        ecommerce: {
+          products: items.map((item: CartItem) => ({
+            affiliation: item.affiliation,
+            brand: item.brand,
+            category: item.category,
+            id: item.productId,
+            variant: item.skuId,
+            name: item.name, // Product name
+            price: item.priceIsInt === true ? item.price / 100.0 : item.price,
+            quantity: item.quantity,
+            dimension1: item.productRefId ?? '',
+            dimension2: item.referenceId ?? '', // SKU reference id
+            dimension3: item.variant, // SKU name (variant)
+          })),
+        },
+      }
+
+      updateEcommerce('viewCart', data)
+
+      break
+    }
+
+    case 'vtex:beginCheckout': {
+      const { items } = e.data
+
+      const data = {
+        event: 'beginCheckout',
+        ecommerce: {
+          products: items.map((item: CartItem) => ({
+            affiliation: item.affiliation,
+            brand: item.brand,
+            category: item.category,
+            id: item.productId,
+            variant: item.skuId,
+            name: item.name, // Product name
+            price: item.priceIsInt === true ? item.price / 100.0 : item.price,
+            quantity: item.quantity,
+            dimension1: item.productRefId ?? '',
+            dimension2: item.referenceId ?? '', // SKU reference id
+            dimension3: item.variant, // SKU name (variant)
+          })),
+        },
+      }
+
+      updateEcommerce('beginCheckout', data)
 
       break
     }
