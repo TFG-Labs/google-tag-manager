@@ -330,7 +330,7 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
             category: item.category,
             id: item.productId,
             variant: item.skuId,
-            name: item.name, // Product name
+            name: item.name,
             price: item.priceIsInt === true ? item.price / 100.0 : item.price,
             quantity: item.quantity,
             dimension1: item.productRefId ?? '',
