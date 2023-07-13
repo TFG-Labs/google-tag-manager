@@ -11,7 +11,6 @@ import {
   ProductViewReferenceId,
 } from '../typings/events'
 import { AnalyticsEcommerceProduct, MaybePrice } from '../typings/gtm'
-import { toHash } from './analytics/utils'
 
 function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -219,10 +218,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:orderPlaced': {
       const order = e.data
-      const visitorContact = order?.visitorContactInfo.map((e: string) => toHash(e)
-      )
-      const visitorDemographic = order?.visitorDemographicInfo.map((e: string) => toHash(e)
-      )
 
       const ecommerce = {
         purchase: {
@@ -237,8 +232,6 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         // @ts-ignore
         event: 'orderPlaced',
         ...order,
-        visitorContactInfo: visitorContact,
-        visitorDemographicInfo: visitorDemographic,
         // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
         // were using this as it was called before (ecommerce). For that reason,
         // it will also be sent as ecommerce to the dataLayer.
