@@ -7,7 +7,7 @@ export default function updateEcommerce(
   const eventIndex = window.dataLayer.findIndex(
     gtmEvent => gtmEvent.event && gtmEvent.event === eventName
   )
-  
+
   if (eventIndex >= 0) {
     window.dataLayer.splice(eventIndex, 1)
   }
