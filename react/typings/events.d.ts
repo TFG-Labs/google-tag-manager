@@ -177,6 +177,7 @@ interface CartItemAdditionalInfo {
 }
 
 interface CartItem {
+  affiliation: string
   id: string
   productCategories: Record<string, string> | null
   additionalInfo: CartItemAdditionalInfo | null
@@ -387,6 +388,10 @@ export interface ProductSummary {
   productName: string
   productReference: string
   sku: ItemSummary
+  properties: {
+    name: string;
+    values: string[]
+  }[]
 }
 
 interface ItemSummary {
