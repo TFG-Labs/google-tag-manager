@@ -1,6 +1,14 @@
 import push from './push'
 import { PixelMessage } from '../typings/events'
-import { toHash } from './analytics/utils'
+
+
+async function emailToHash(email:string) {
+  const msgUint8 = new TextEncoder().encode(email);                           
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
 
 export async function sendExtraEvents(e: PixelMessage) {
 
@@ -26,18 +34,12 @@ export async function sendExtraEvents(e: PixelMessage) {
         return
       }
 
-      const emailHash = data.email ? await toHash(data.email) : undefined
-      const firstName = data?.firstName ? await toHash(data.firstName) : null
-      const lastName = data?.lastName? await toHash(data.lastName) : null
-      const phone = data?.phone? await toHash(data.phone) : null
+      const emailHash = data.email ? await emailToHash(data.email) : undefined
 
       push({
         event: 'userData',
         userId: data.id,
-        emailHash: emailHash ,
-        ...(firstName && {firstName}),
-        ...(lastName && {lastName}),
-        ...(phone && {phone})
+        emailHash: emailHash 
       })
 
       break
