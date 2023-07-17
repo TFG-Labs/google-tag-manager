@@ -8,7 +8,7 @@
   "devDependencies": {
     "@types/node": "^12.0.0",
     "@vtex/test-tools": "^3.3.2",
-    "thefoschini.google-tag-manager": "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.3.4/public/@types/thefoschini.google-tag-manager",
+    "thefoschini.google-tag-manager": "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.4.1/public/@types/thefoschini.google-tag-manager",
     "vtex.pixel-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-interfaces@1.1.1/public/_types/react",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.133.2/public/@types/vtex.render-runtime"
   }

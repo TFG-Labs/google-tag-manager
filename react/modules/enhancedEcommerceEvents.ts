@@ -218,6 +218,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
     }
 
     case 'vtex:orderPlaced': {
+      console.log('====================================');
+      console.log('here');
+      console.log('====================================');
       const order = e.data
       const visitorContact = order?.visitorContactInfo?.map((e: string) => toHash(e)
       )
