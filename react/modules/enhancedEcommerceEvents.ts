@@ -219,9 +219,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:orderPlaced': {
       const order = e.data
-      const visitorContact = order?.visitorContactInfo.map((e: string) => toHash(e)
+      const visitorContact = order?.visitorContactInfo?.map((e: string) => toHash(e)
       )
-      const visitorDemographic = order?.visitorDemographicInfo.map((e: string) => toHash(e)
+      const visitorDemographic = order?.visitorDemographicInfo?.map((e: string) => toHash(e)
       )
 
       const ecommerce = {
