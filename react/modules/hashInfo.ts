@@ -1,6 +1,5 @@
 import { PixelMessage } from '../typings/events';
 import { toHash } from './analytics/utils';
-// import push from './push'
 
 export async function hashPersonalInfo(
   e: PixelMessage
