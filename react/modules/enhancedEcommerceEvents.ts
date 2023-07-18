@@ -9,6 +9,7 @@ import {
 } from '../typings/events'
 import { MaybePrice } from '../typings/gtm'
 import { getCategory, getStoreName, getPurchaseObjectData, getProductObjectData, getProductImpressionObjectData, getCheckoutProductObjectData } from '../utils'
+import { toHash } from './analytics/utils'
 
 function getSeller(sellers: Seller[]) {
   const defaultSeller = sellers.find(seller => seller.sellerDefault)
@@ -215,6 +216,11 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
 
     case 'vtex:orderPlaced': {
       const order = e.data
+      const visitorContact = order?.visitorContactInfo && await Promise.all(order?.visitorContactInfo?.map((e: string) => toHash(e).then((value: string) => value)))
+      
+      const visitorContactPhone = order?.visitorContactPhone && await toHash(order?.visitorContactPhone).then((e: string) => e)
+      
+      const visitorDemographic =  order?.visitorDemographicInfo && await Promise.all(order?.visitorDemographicInfo?.map((e: string) => toHash(e).then((value: string) => value)))
 
       const ecommerce = {
         purchase: {
@@ -229,6 +235,9 @@ export async function sendEnhancedEcommerceEvents(e: PixelMessage) {
         // @ts-ignore
         event: 'orderPlaced',
         ...order,
+        visitorContactInfo: visitorContact,
+        visitorDemographicInfo: visitorDemographic,
+        visitorContactPhone: visitorContactPhone,
         // The name ecommerceV2 was introduced as a fix, so it is possible that some clients
         // were using this as it was called before (ecommerce). For that reason,
         // it will also be sent as ecommerce to the dataLayer.
