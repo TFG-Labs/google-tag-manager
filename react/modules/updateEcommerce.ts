@@ -8,6 +8,8 @@ export default function updateEcommerce(
     gtmEvent => gtmEvent.event && gtmEvent.event === eventName
   )
 
+  const isBashPay = document?.cookie?.includes('bashpaybeta=true')
+
   if (eventIndex >= 0) {
     window.dataLayer.splice(eventIndex, 1)
   }
@@ -23,6 +25,8 @@ export default function updateEcommerce(
 
     push({ ecommerce: null })
   }
+
+  if(isBashPay)  data.is_bash_pay = true
 
   push(data)
 }
