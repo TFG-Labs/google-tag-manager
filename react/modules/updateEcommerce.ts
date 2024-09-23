@@ -26,7 +26,7 @@ export default function updateEcommerce(
     push({ ecommerce: null })
   }
 
-  if (isBashPay) data.is_bash_pay = true
+  if (isBashPay) data.is_bash_pay = 'true'
 
   push(data)
 }

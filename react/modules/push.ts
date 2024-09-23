@@ -20,7 +20,7 @@ export default function push(rawEvent: Record<string, unknown>) {
 
     event = {
       ...rawEvent,
-      ...(isBashPay ? { is_bash_pay: isBashPay } : {}),
+      ...(isBashPay ? { is_bash_pay: 'true' } : {}),
       originalLocation,
       originalReferrer,
     }
