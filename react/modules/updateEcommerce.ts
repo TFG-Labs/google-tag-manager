@@ -9,6 +9,11 @@ export default function updateEcommerce(
   )
 
   const isBashPay = document?.cookie?.includes('bashpaybeta=true')
+  const isOrderPlaced = eventName.endsWith('orderPlaced')
+
+  // Prevent duplcioate purchase events.
+  // BashPay fires using Store API.
+  if (isBashPay && isOrderPlaced) return
 
   if (eventIndex >= 0) {
     window.dataLayer.splice(eventIndex, 1)
