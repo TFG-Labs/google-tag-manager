@@ -11,6 +11,8 @@ export default function push(rawEvent: Record<string, unknown>) {
     origin,
   } = createOrGetAnalyticsData()
 
+  const isBashPay = document?.cookie?.includes('bashpaybeta=true')
+
   let event = rawEvent
 
   if (isFirstPush || origin === 'fresh') {
@@ -18,6 +20,7 @@ export default function push(rawEvent: Record<string, unknown>) {
 
     event = {
       ...rawEvent,
+      ...(isBashPay ? { is_bash_pay: isBashPay } : {}),
       originalLocation,
       originalReferrer,
     }

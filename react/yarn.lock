@@ -4837,9 +4837,9 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-"thefoschini.google-tag-manager@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.4.2/public/@types/thefoschini.google-tag-manager":
-  version "3.4.2"
-  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.4.2/public/@types/thefoschini.google-tag-manager#75df5e41a14300c66c69897e69ca91f18c0c080e"
+"thefoschini.google-tag-manager@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.4.3/public/@types/thefoschini.google-tag-manager":
+  version "3.4.3"
+  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.google-tag-manager@3.4.3/public/@types/thefoschini.google-tag-manager#f2a6f5fcded4390843c0cb6b57589e432c6a749d"
 
 throat@^5.0.0:
   version "5.0.0"
@@ -5104,9 +5104,9 @@ verror@1.10.0:
   version "0.0.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-interfaces@1.1.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.133.2/public/@types/vtex.render-runtime":
-  version "8.133.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.133.2/public/@types/vtex.render-runtime#6fc9c79c52f292c67f583e96d66a56b7b61eabd1"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.8/public/@types/vtex.render-runtime":
+  version "8.134.8"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.8/public/@types/vtex.render-runtime#b54ce7a361a512237c57ae2ad254ba1958b22ef9"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
